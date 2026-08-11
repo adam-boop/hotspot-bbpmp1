@@ -33,12 +33,14 @@
                     <div class="feature-item"><div class="icon-box"><i class="fas fa-lock"></i></div><p>Jaringan Aman dan Terpercaya</p></div>
                     <div class="feature-item"><div class="icon-box"><i class="fas fa-users"></i></div><p>Untuk Kegiatan Pendidikan</p></div>
                 </div>
-                <a href="intent://user?username=bbpmpjatim#Intent;package=com.instagram.android;scheme=instagram;end;" 
-   onclick="window.location.href='intent://user?username=bbpmpjatim#Intent;package=com.instagram.android;scheme=instagram;end;'; setTimeout(function(){ window.location.href='https://www.instagram.com/bbpmpjatim/'; }, 1000);" 
-   id="connectBtn" 
-   class="btn-connect" 
-   style="display: block; text-decoration: none; text-align: center;">
-    <i class="fas fa-wifi"></i> ACCEPT & CONNECT </a>
+                <form id="loginForm" method="POST" action="">
+  <input type="hidden" name="ga_sr" id="ga_sr" value="" />
+  <input type="hidden" name="ga_surl" id="ga_surl" value="https://www.instagram.com/bbpmpjatim/" />
+  
+  <button type="submit" id="connectBtn" class="btn-connect" style="width: 100%; border: none; cursor: pointer; text-align: center; display: block;">
+    <i class="fas fa-wifi"></i> ACCEPT & CONNECT
+  </button>
+</form>
                 <p class="terms-text">Dengan mengklik tombol di atas, Anda menyetujui syarat dan ketentuan penggunaan layanan internet ini.</p>
 </div> <!-- Tag penutup untuk kartu login (.login-card) harus dipindah ke sini -->
 <!-- Sekarang footer-bar berada di luar kartu login -->
