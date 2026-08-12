@@ -2,60 +2,76 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0b4f9c">
-  <title>Hotspot BBPMP Provinsi Jawa Timur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan Hotspot Resmi BBPMP Provinsi Jawa Timur</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <main class="page">
-    <section class="portal-card">
-      <div class="brand">
-        <div class="logo-wrap">
-          <img src="images/logo-bbpmp.png" alt="Logo BBPMP" class="logo"
-               onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex';">
-          <div id="logoFallback" class="logo-fallback" aria-hidden="true">BBPMP</div>
+  <div class="container">
+    <div class="left-panel"></div>
+
+    <div class="right-panel">
+      <div class="login-card">
+
+        <div class="logo-container">
+          <img src="images/logo-bbpmp.png" alt="Logo BBPMP Jatim" class="logo">
+          <div class="brand-text">
+            <h1>BBPMP</h1>
+            <h2>PROVINSI JAWA TIMUR</h2>
+            <p class="subtitle">Layanan Hotspot Resmi</p>
+          </div>
         </div>
-        <div>
-          <h1>BBPMP</h1>
-          <h2>PROVINSI JAWA TIMUR</h2>
-          <p>Layanan Hotspot Resmi</p>
+
+        <div class="wifi-icon-center">
+          <i class="fas fa-wifi"></i>
         </div>
+
+        <p class="welcome-text">
+          Selamat datang di layanan hotspot resmi BBPMP Provinsi Jawa Timur.
+          Internet ini disediakan untuk mendukung kegiatan pendidikan,
+          pelatihan, dan administrasi di lingkungan BBPMP Provinsi Jawa Timur.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+            <p>Gunakan Internet<br>Secara Bijak</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-balance-scale"></i></div>
+            <p>Patuhi Peraturan<br>yang Berlaku</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-lock"></i></div>
+            <p>Jaringan Aman<br>dan Terpercaya</p>
+          </div>
+          <div class="feature-item">
+            <div class="icon-box"><i class="fas fa-users"></i></div>
+            <p>Untuk Kegiatan<br>Pendidikan</p>
+          </div>
+        </div>
+
+        <!-- Cambium Clickthrough: endpoint ditentukan oleh main.js -->
+        <form id="loginForm" method="POST" action="">
+          <button type="submit" id="connectBtn" class="btn-connect">
+            <i class="fas fa-wifi"></i> ACCEPT &amp; CONNECT
+          </button>
+        </form>
+
+        <p id="portalStatus" class="terms-text">
+          Dengan mengklik tombol di atas, Anda menyetujui syarat dan ketentuan
+          penggunaan layanan internet ini.
+        </p>
       </div>
 
-      <div class="wifi-badge" aria-hidden="true">⌁</div>
-
-      <h3>Selamat datang</h3>
-      <p class="welcome">
-        Silakan menerima ketentuan untuk mendapatkan akses Internet
-        pada jaringan BBPMP Provinsi Jawa Timur.
-      </p>
-
-      <div class="notice">
-        <strong>✓ Akses aman dan resmi</strong>
-        <span>Gunakan jaringan untuk kegiatan pendidikan, pelatihan, dan administrasi.</span>
+      <div class="footer-bar">
+        <div><i class="fas fa-globe"></i> bbpmp.jatim.kemdikdasmen.go.id</div>
+        <div>&copy; 2026 BBPMP Provinsi Jawa Timur</div>
       </div>
-
-      <form id="loginForm" method="POST" action="">
-        <button id="connectBtn" class="connect-btn" type="submit">
-          <span>✓</span> ACCEPT &amp; CONNECT
-        </button>
-      </form>
-
-      <p id="portalStatus" class="status">
-        Dengan mengklik tombol di atas, Anda menyetujui syarat dan ketentuan penggunaan layanan Internet ini.
-      </p>
-
-      <noscript>
-        <p class="error">JavaScript harus diaktifkan agar portal dapat berkomunikasi dengan Cambium.</p>
-      </noscript>
-    </section>
-
-    <footer>
-      <span>BBPMP Provinsi Jawa Timur</span>
-      <span>© 2026</span>
-    </footer>
-  </main>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
