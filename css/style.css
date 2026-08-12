@@ -1,512 +1,77 @@
-/* =========================================================
-   BBPMP PROVINSI JAWA TIMUR
-   STYLE CAPTIVE PORTAL - SPLIT SCREEN
-   Tampilan mengikuti contoh: kiri foto/branding,
-   kanan panel login/accept yang bersih dan elegan.
-   ========================================================= */
-
-:root {
-  --bbpmp-blue: #0759ad;
-  --bbpmp-blue-dark: #064483;
-  --bbpmp-blue-soft: #eaf4ff;
-  --bbpmp-yellow: #f2c500;
-  --text: #183b62;
-  --muted: #6d8198;
-  --line: #dbe6f1;
-  --white: #ffffff;
-  --page-bg: #edf3f8;
-  --shadow: 0 18px 45px rgba(23, 67, 110, 0.16);
-  --radius: 22px;
-}
-
-/* ---------- RESET ---------- */
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  min-height: 100vh;
-  min-height: 100svh;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  color: var(--text);
-  background: var(--page-bg);
-}
-
-/* ---------- LAYOUT UTAMA ---------- */
-
-.portal-page {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  overflow: hidden;
-}
-
-/* ---------- BAGIAN KIRI ---------- */
-
-.portal-left {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(0, 54, 111, 0.04),
-      rgba(0, 54, 111, 0.08)
-    ),
-    url("background-bbpmp.jpg");
-
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/*
-   Jika gambar background Anda sudah berisi seluruh desain
-   seperti contoh, bagian ini cukup dibiarkan kosong.
-*/
-
-.portal-left::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 52, 108, 0.08),
-      transparent 70%
-    );
-}
-
-/* ---------- BAGIAN KANAN ---------- */
-
-.portal-right {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 45px 6%;
-  background:
-    radial-gradient(
-      circle at 80% 10%,
-      rgba(7, 89, 173, 0.08),
-      transparent 35%
-    ),
-    #f3f7fb;
-}
-
-/* ---------- CARD ---------- */
-
-.portal-card {
-  position: relative;
-  width: 100%;
-  max-width: 595px;
-  padding: 34px 42px 28px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(7, 89, 173, 0.12);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-/* ---------- HEADER ---------- */
-
-.portal-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  margin-bottom: 20px;
-}
-
-.portal-logo {
-  width: 92px;
-  height: 92px;
-  object-fit: contain;
-  flex: 0 0 auto;
-}
-
-.portal-brand {
-  min-width: 0;
-}
-
-.portal-brand h1 {
-  margin: 0;
-  color: var(--bbpmp-blue);
-  font-size: 40px;
-  line-height: 0.95;
-  letter-spacing: 0.5px;
-  font-weight: 800;
-}
-
-.portal-brand h2 {
-  margin: 8px 0 0;
-  color: var(--text);
-  font-size: 17px;
-  line-height: 1.2;
-  letter-spacing: 1.2px;
-  font-weight: 700;
-}
-
-.portal-brand p {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* ---------- ICON WIFI ---------- */
-
-.portal-wifi {
-  width: 54px;
-  height: 54px;
-  margin: 20px auto 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--bbpmp-blue-soft);
-  color: var(--bbpmp-blue);
-  font-size: 25px;
-  font-weight: 700;
-}
-
-/* ---------- WELCOME ---------- */
-
-.portal-welcome {
-  margin: 0 auto 24px;
-  max-width: 510px;
-  text-align: center;
-  color: #506b87;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* ---------- INFO FEATURES ---------- */
-
-.portal-features {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 0 0 24px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.portal-feature {
-  min-height: 105px;
-  padding: 17px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-right: 1px solid var(--line);
-}
-
-.portal-feature:last-child {
-  border-right: 0;
-}
-
-.portal-feature-icon {
-  margin-bottom: 9px;
-  color: var(--bbpmp-blue);
-  font-size: 23px;
-  line-height: 1;
-}
-
-.portal-feature-title {
-  max-width: 105px;
-  color: #355372;
-  font-size: 11px;
-  line-height: 1.45;
-}
-
-/* ---------- FORM ---------- */
-
-.portal-form {
-  width: 100%;
-}
-
-.portal-input {
-  width: 100%;
-  min-height: 47px;
-  margin-bottom: 10px;
-  padding: 12px 14px;
-  border: 1px solid #d7e2ec;
-  border-radius: 9px;
-  outline: none;
-  background: #fff;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.portal-input:focus {
-  border-color: var(--bbpmp-blue);
-  box-shadow: 0 0 0 3px rgba(7, 89, 173, 0.09);
-}
-
-/* ---------- ACCEPT BUTTON ---------- */
-
-.portal-button,
-button.portal-button {
-  width: 100%;
-  min-height: 54px;
-  padding: 12px 20px;
-  border: 0;
-  border-radius: 11px;
-  background: linear-gradient(
-    135deg,
-    #4d8dc5,
-    var(--bbpmp-blue)
-  );
-  color: #fff;
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(7, 89, 173, 0.20);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.portal-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 13px 28px rgba(7, 89, 173, 0.25);
-}
-
-.portal-button:active {
-  transform: translateY(0);
-}
-
-/* ---------- MESSAGE / ERROR ---------- */
-
-.portal-message {
-  margin-top: 13px;
-  color: var(--muted);
-  text-align: center;
-  font-size: 11px;
-  line-height: 1.55;
-}
-
-/* ---------- FOOTER ---------- */
-
-.portal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-top: 18px;
-  color: #71859a;
-  font-size: 10px;
-}
-
-.portal-footer a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.portal-footer a:hover {
-  color: var(--bbpmp-blue);
-}
-
-/* ---------- RESPONSIVE TABLET ---------- */
-
-@media (max-width: 1000px) {
-  .portal-page {
-    grid-template-columns: 46% 54%;
-  }
-
-  .portal-right {
-    padding: 30px 25px;
-  }
-
-  .portal-card {
-    padding: 30px 28px 25px;
-  }
-
-  .portal-header {
-    gap: 20px;
-  }
-
-  .portal-logo {
-    width: 78px;
-    height: 78px;
-  }
-
-  .portal-brand h1 {
-    font-size: 34px;
-  }
-
-  .portal-brand h2 {
-    font-size: 15px;
-  }
-}
-
-/* ---------- RESPONSIVE HP ---------- */
-
-@media (max-width: 760px) {
-  .portal-page {
-    display: block;
-    min-height: 100vh;
-  }
-
-  .portal-left {
-    display: block;
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body, html { height: 100%; overflow: hidden; background-color: #f0f2f5; }
+.container {
+    display: flex;
     width: 100%;
-    height: 245px;
-    min-height: 0;
-
-    background-position: center center;
-  }
-
-  .portal-right {
-    min-height: auto;
-    padding: 0 14px 25px;
-    margin-top: -22px;
-    position: relative;
-    background: transparent;
-  }
-
-  .portal-card {
-    max-width: 560px;
-    padding: 27px 20px 22px;
-    border-radius: 19px;
-  }
-
-  .portal-header {
-    gap: 16px;
-  }
-
-  .portal-logo {
-    width: 68px;
-    height: 68px;
-  }
-
-  .portal-brand h1 {
-    font-size: 29px;
-  }
-
-  .portal-brand h2 {
-    font-size: 13px;
-    letter-spacing: 0.8px;
-  }
-
-  .portal-brand p {
-    font-size: 11px;
-  }
-
-  .portal-wifi {
-    width: 48px;
-    height: 48px;
-    margin: 14px auto;
-    font-size: 22px;
-  }
-
-  .portal-welcome {
-    font-size: 12px;
-    line-height: 1.65;
-    margin-bottom: 18px;
-  }
-
-  .portal-features {
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 20px;
-  }
-
-  .portal-feature:nth-child(2) {
-    border-right: 0;
-  }
-
-  .portal-feature:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .portal-feature {
-    min-height: 82px;
-    padding: 12px 6px;
-  }
-
-  .portal-feature-icon {
-    font-size: 20px;
-    margin-bottom: 6px;
-  }
-
-  .portal-feature-title {
-    font-size: 10px;
-  }
-
-  .portal-button,
-  button.portal-button {
-    min-height: 50px;
-    font-size: 15px;
-  }
-
-  .portal-footer {
-    font-size: 9px;
-  }
+    height: 100vh;
+    background-image: url('../images/background.jpg'); /* Gambar gedung jadi background utama */
+    background-size: cover;
+    background-position: center;
 }
-
-/* ---------- HP KECIL ---------- */
-
-@media (max-width: 400px) {
-  .portal-left {
-    height: 210px;
-  }
-
-  .portal-right {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .portal-card {
-    padding: 23px 16px 19px;
-  }
-
-  .portal-header {
-    gap: 11px;
-  }
-
-  .portal-logo {
-    width: 58px;
-    height: 58px;
-  }
-
-  .portal-brand h1 {
-    font-size: 25px;
-  }
-
-  .portal-brand h2 {
-    font-size: 11px;
-  }
-
-  .portal-brand p {
-    font-size: 10px;
-  }
-
-  .portal-footer {
+.left-panel {
+    flex: 1.2;
+}
+.right-panel {
+    flex: 1;
+    background: transparent; /* Hapus gradasi abu-abu agar tembus pandang */
+    display: flex;
     flex-direction: column;
-    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow-y: auto;
+}
+.login-card {
+    background: rgba(255, 255, 255, 0.85); /* Mengubah putih polos menjadi transparan 85% */
+    backdrop-filter: blur(10px);           /* Memberikan efek blur kaca buram modern di belakang kartu */
+    -webkit-backdrop-filter: blur(10px);   /* Dukungan untuk browser Safari/iOS */
+    width: 55%;
+    max-width: 500px;
+    margin: auto;
+    padding: 35px 25px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
-  }
+}
+.logo-container .logo { height: 70px; margin-bottom: 10px; }
+.logo-container h1 { font-size: 26px; color: #0b438b; font-weight: 800; letter-spacing: 1px; margin-bottom: 2px; }
+.logo-container h2 { font-size: 15px; color: #0b438b; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 5px; }
+.logo-container .subtitle { font-size: 13px; color: #555; font-weight: 600; }
+.wifi-icon-center { font-size: 24px; color: #1a73e8; margin: 15px 0; }
+.welcome-text { font-size: 12.5px; color: #444; line-height: 1.6; margin-bottom: 25px; padding: 0 10px; }
+.features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
+.feature-item { display: flex; flex-direction: column; align-items: center; }
+.feature-item .icon-box { width: 45px; height: 45px; border-radius: 50%; background-color: #e8f0fe; color: #1a73e8; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 8px; }
+.feature-item p { font-size: 9.5px; color: #333; font-weight: 600; line-height: 1.2; }
+.btn-connect { width: 100%; background-color: #0b438b; color: white; border: none; padding: 14px; font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(11, 67, 139, 0.3); transition: background-color 0.2s; }
+.btn-connect i { margin-right: 8px; }
+.btn-connect:hover { background-color: #08336d; }
+.terms-text { font-size: 10px; color: #666; margin-top: 15px; line-height: 1.4; }
+.footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between; /* Memisahkan kiri dan kanan secara otomatis */
+    align-items: center;
+    background: transparent !important; /* Memaksa menghilangkan kotak latar belakang */
+    box-shadow: none !important;        /* Menghilangkan bayangan kotak jika ada */
+    z-index: 10;
+    box-sizing: border-box;
 }
 
-/* ---------- ACCESSIBILITY ---------- */
-
-.portal-button:focus-visible,
-.portal-input:focus-visible,
-.portal-secondary:focus-visible {
-  outline: 3px solid rgba(7, 89, 173, 0.25);
-  outline-offset: 2px;
+.footer-bar div, 
+.footer-bar span, 
+.footer-bar a {
+    color: #ffffff !important; /* Memastikan semua teks di footer berwarna putih */
+    font-size: 13px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8); /* Bayangan teks agar terbaca jelas */
+    text-decoration: none;
+}
+@media (max-width: 900px) {
+    .left-panel { display: none; }
+    .right-panel { flex: 1; width: 100%; background: #0b438b; padding-top: 30px; }
+    .login-card { width: 90%; }
 }
