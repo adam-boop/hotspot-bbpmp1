@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
   const urlParams = new URLSearchParams(window.location.search);
-  
-  // Ambil parameter bawaan dari cnMaestro
+
+  // Ambil parameter resmi dari cnMaestro
   const gaSr = urlParams.get('ga_sr') || urlParams.get('ga_srvr') || '';
   const gaCm = urlParams.get('ga_cm') || '10.11.60.1';
   const gaSurl = urlParams.get('ga_surl') || 'https://www.instagram.com/bbpmpjatim/';
   
-  // Ambil URL target POST resmi dari cnMaestro (default ke port 80 AP Cambium)
+  // Jika cnMaestro mengirim URL POST khusus (ga_post), gunakan itu. 
+  // Jika tidak, gunakan jalur standar cnMaestro / AP (tanpa port 8805).
   const gaPost = urlParams.get('ga_post') || ("http://" + gaCm + "/cgi-bin/hotspot_login.cgi");
 
   const loginForm = document.getElementById('loginForm');
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   if (loginForm) {
-    // Arahkan form action ke endpoint POST Cambium
+    // Dynamic Action Target
     loginForm.action = gaPost;
 
     loginForm.addEventListener("submit", function() {
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         connectBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
         connectBtn.disabled = true;
       }
-      // Form akan ter-submit secara alami (Standard POST)
+      // Biarkan browser melakukan submit POST bawaan secara alami
     });
   }
 });
