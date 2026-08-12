@@ -22,15 +22,15 @@ body, html { height: 100%; overflow: hidden; background-color: #f0f2f5; }
     overflow-y: auto;
 }
 .login-card {
-    background: rgba(255, 255, 255, 0.85); /* Mengubah putih polos menjadi transparan 85% */
-    backdrop-filter: blur(10px);           /* Memberikan efek blur kaca buram modern di belakang kartu */
-    -webkit-backdrop-filter: blur(10px);   /* Dukungan untuk browser Safari/iOS */
+    background: rgba(255, 255, 255, 0.58); /* Mengubah putih polos menjadi transparan 85% */
+    backdrop-filter: blur(8px) saturate(120%);           /* Memberikan efek blur kaca buram modern di belakang kartu */
+    -webkit-backdrop-filter: blur(8px) saturate(120%);   /* Dukungan untuk browser Safari/iOS */
     width: 55%;
     max-width: 500px;
     margin: auto;
     padding: 35px 25px;
     border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.55);
     text-align: center;
 }
 .logo-container .logo { height: 70px; margin-bottom: 10px; }
