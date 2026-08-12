@@ -1,77 +1,45 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-body, html { height: 100%; overflow: hidden; background-color: #f0f2f5; }
-.container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    background-image: url('../images/background.jpg'); /* Gambar gedung jadi background utama */
-    background-size: cover;
-    background-position: center;
-}
-.left-panel {
-    flex: 1.2;
-}
-.right-panel {
-    flex: 1;
-    background: transparent; /* Hapus gradasi abu-abu agar tembus pandang */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    overflow-y: auto;
-}
-.login-card {
-    background: rgba(255, 255, 255, 0.85); /* Mengubah putih polos menjadi transparan 85% */
-    backdrop-filter: blur(10px);           /* Memberikan efek blur kaca buram modern di belakang kartu */
-    -webkit-backdrop-filter: blur(10px);   /* Dukungan untuk browser Safari/iOS */
-    width: 55%;
-    max-width: 500px;
-    margin: auto;
-    padding: 35px 25px;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    text-align: center;
-}
-.logo-container .logo { height: 70px; margin-bottom: 10px; }
-.logo-container h1 { font-size: 26px; color: #0b438b; font-weight: 800; letter-spacing: 1px; margin-bottom: 2px; }
-.logo-container h2 { font-size: 15px; color: #0b438b; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 5px; }
-.logo-container .subtitle { font-size: 13px; color: #555; font-weight: 600; }
-.wifi-icon-center { font-size: 24px; color: #1a73e8; margin: 15px 0; }
-.welcome-text { font-size: 12.5px; color: #444; line-height: 1.6; margin-bottom: 25px; padding: 0 10px; }
-.features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
-.feature-item { display: flex; flex-direction: column; align-items: center; }
-.feature-item .icon-box { width: 45px; height: 45px; border-radius: 50%; background-color: #e8f0fe; color: #1a73e8; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 8px; }
-.feature-item p { font-size: 9.5px; color: #333; font-weight: 600; line-height: 1.2; }
-.btn-connect { width: 100%; background-color: #0b438b; color: white; border: none; padding: 14px; font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(11, 67, 139, 0.3); transition: background-color 0.2s; }
-.btn-connect i { margin-right: 8px; }
-.btn-connect:hover { background-color: #08336d; }
-.terms-text { font-size: 10px; color: #666; margin-top: 15px; line-height: 1.4; }
-.footer-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between; /* Memisahkan kiri dan kanan secara otomatis */
-    align-items: center;
-    background: transparent !important; /* Memaksa menghilangkan kotak latar belakang */
-    box-shadow: none !important;        /* Menghilangkan bayangan kotak jika ada */
-    z-index: 10;
-    box-sizing: border-box;
-}
-
-.footer-bar div, 
-.footer-bar span, 
-.footer-bar a {
-    color: #ffffff !important; /* Memastikan semua teks di footer berwarna putih */
-    font-size: 13px;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8); /* Bayangan teks agar terbaca jelas */
-    text-decoration: none;
-}
-@media (max-width: 900px) {
-    .left-panel { display: none; }
-    .right-panel { flex: 1; width: 100%; background: #0b438b; padding-top: 30px; }
-    .login-card { width: 90%; }
+*{box-sizing:border-box}
+:root{font-family:Arial,Helvetica,sans-serif;color:#18324b;background:#eef4fa}
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,#eef6ff 0%,#dceafa 100%)}
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px}
+.portal-card,.success-card{width:100%;max-width:560px;background:rgba(255,255,255,.97);border:1px solid #dce7f2;border-radius:24px;box-shadow:0 18px 55px rgba(22,60,100,.15);padding:30px}
+.brand{display:flex;align-items:center;gap:18px}
+.logo-wrap{width:82px;height:82px;display:flex;align-items:center;justify-content:center;flex:none}
+.logo{max-width:82px;max-height:82px;object-fit:contain}
+.logo-fallback{width:76px;height:76px;border-radius:50%;background:#0b4f9c;color:#fff;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.brand h1{margin:0;color:#0b4f9c;font-size:34px;letter-spacing:.5px}
+.brand h2{margin:3px 0 0;font-size:14px;letter-spacing:1.1px;color:#263f59}
+.brand p{margin:7px 0 0;color:#6b7b8c;font-size:14px}
+.wifi-badge{width:58px;height:58px;margin:26px auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e8f2ff;color:#0b4f9c;font-size:38px;font-weight:700;transform:rotate(90deg)}
+h3{margin:0;text-align:center;font-size:25px;color:#173a5b}
+.welcome{text-align:center;line-height:1.65;color:#5d6f80;margin:12px auto 20px;max-width:470px}
+.notice{display:flex;flex-direction:column;gap:5px;background:#f2f8ff;border:1px solid #d7e9fb;border-radius:14px;padding:15px 17px;margin-bottom:20px}
+.notice strong{color:#0b4f9c}
+.notice span{font-size:13px;color:#627588;line-height:1.5}
+.connect-btn,.secondary-btn{width:100%;min-height:52px;border-radius:13px;border:0;font-size:16px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.connect-btn{background:#0b4f9c;color:#fff;box-shadow:0 8px 18px rgba(11,79,156,.22)}
+.connect-btn:hover{background:#083f7d}
+.connect-btn:disabled{opacity:.75;cursor:wait}
+.status{margin:14px 0 0;text-align:center;color:#7a8794;font-size:12px;line-height:1.5}
+.error-text{color:#b42318}
+.error{color:#b42318;background:#fff1f0;padding:10px;border-radius:10px;font-size:13px}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.success-card{text-align:center}
+.success-icon{width:82px;height:82px;margin:0 auto 18px;border-radius:50%;background:#16a34a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700}
+.success-card h1{margin:0;color:#173a5b;font-size:28px}
+.success-actions{margin-top:24px;display:grid;gap:12px}
+.link-btn{box-shadow:none}
+.secondary-btn{background:#edf1f5;color:#18324b}
+footer{width:100%;max-width:560px;display:flex;justify-content:space-between;padding:15px 4px 0;color:#758596;font-size:11px}
+@media(max-width:520px){
+  .page{padding:14px}
+  .portal-card,.success-card{padding:22px 18px;border-radius:20px}
+  .brand{gap:12px}
+  .logo-wrap{width:65px;height:65px}
+  .logo{max-width:65px;max-height:65px}
+  .logo-fallback{width:60px;height:60px;font-size:11px}
+  .brand h1{font-size:27px}
+  .brand h2{font-size:11px}
+  .brand p{font-size:12px}
 }
