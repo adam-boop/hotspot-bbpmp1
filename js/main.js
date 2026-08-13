@@ -1,3 +1,19 @@
+/*
+ * BBPMP - Cambium External Hotspot / Clickthrough
+ *
+ * IMPORTANT:
+ * 1. Cambium Guest Access must use External Hotspot + Clickthrough.
+ * 2. The External Page URL should be HTTPS.
+ * 3. AP Server Protocol in cnMaestro must match the values below.
+ *
+ * Recommended for an HTTPS portal:
+ *   AP Server Protocol = HTTPS
+ *   Cambium AP POST port = 444
+ *
+ * Cambium requires the ORIGINAL query string to be appended to
+ * /cgi-bin/hotspot_login.cgi. Do not rebuild/re-encode ga_Qv.
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("loginForm");
   const button = document.getElementById("connectBtn");
@@ -5,84 +21,122 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!form || !button) return;
 
-  /*
-   * Cambium External Hotspot / Clickthrough
-   *
-   * The AP sends the client to this page with parameters such as:
-   * ga_srvr, ga_ssid, ga_ap_mac, ga_nas_id, ga_cmac and ga_Qv.
-   *
-   * Cambium requires the ORIGINAL query string to be appended to:
-   *   http://<ga_srvr>:880/cgi-bin/hotspot_login.cgi
-   * or, for HTTPS AP Server Protocol:
-   *   https://<ga_srvr>:444/cgi-bin/hotspot_login.cgi
-   *
-   * Do NOT rebuild the query string with URLSearchParams: ga_Qv must
-   * remain exactly as received (including its percent-encoding).
-   */
+  // ================================================================
+  // CAMBIUM AP POST SETTINGS
+  // ================================================================
+  // Your portal is hosted on HTTPS, so HTTPS/444 is recommended.
+  // This MUST match cnMaestro > WLAN > Guest Access > AP Server Protocol.
+  const CAMBIUM_AP_PROTOCOL = "https";
+  const CAMBIUM_AP_PORT = "444";
 
+  // ================================================================
+  // READ ORIGINAL CAMBIUM QUERY STRING
+  // ================================================================
+  // Do NOT use URLSearchParams.toString() here. ga_Qv must be sent
+  // exactly as Cambium supplied it, including its existing encoding.
   const rawQuery = window.location.search.length > 1
     ? window.location.search.substring(1)
     : "";
 
   const params = new URLSearchParams(window.location.search);
-  const gaSrvr = params.get("ga_srvr");
+  const gaSrvr = (params.get("ga_srvr") || "").trim();
+  const gaQv = params.get("ga_Qv") || "";
 
+  // ================================================================
+  // VALIDATE CAMBIUM REDIRECT PARAMETERS
+  // ================================================================
   if (!gaSrvr) {
     button.disabled = true;
-    status.textContent =
-      "Parameter captive portal Cambium (ga_srvr) tidak ditemukan. " +
-      "Buka portal melalui redirect Guest Access Cambium.";
+    button.classList.add("disabled");
+
+    if (status) {
+      status.textContent =
+        "Sesi captive portal Cambium tidak ditemukan. " +
+        "Silakan putuskan Wi-Fi, pilih 'Lupakan jaringan', lalu sambungkan kembali.\n" +
+        "Portal harus dibuka melalui Guest Access Cambium. ";
+    }
+
+    console.error("[BBPMP] ga_srvr tidak ditemukan.");
     return;
   }
 
-  /*
-   * Match the Cambium AP Server Protocol setting.
-   * - If the portal is opened over HTTPS, use HTTPS :444 to avoid
-   *   browser mixed-content blocking.
-   * - If opened over HTTP, use HTTP :880.
-   *
-   * For your current cnMaestro configuration, use AP Server Protocol
-   * = HTTPS so this page uses :444.
-   */
-  const useHttpsToAp = window.location.protocol === "https:";
-  const scheme = useHttpsToAp ? "https" : "http";
-  const port = useHttpsToAp ? "444" : "880";
+  if (!gaQv) {
+    button.disabled = true;
+    button.classList.add("disabled");
 
-  /*
-   * If ga_srvr already contains a port, strip it because Cambium's
-   * ga_srvr is normally an AP address/hostname. IPv6 is kept supported.
-   */
-  let apHost = gaSrvr.trim();
+    if (status) {
+      status.textContent =
+        "Sesi captive portal Cambium tidak lengkap (ga_Qv tidak ditemukan). " +
+        "Silakan sambungkan ulang ke Wi-Fi BBPMP.";
+    }
 
-  if (apHost.startsWith("[") && apHost.includes("]")) {
-    apHost = apHost.substring(1, apHost.indexOf("]"));
-  } else if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(apHost)) {
-    apHost = apHost.split(":")[0];
+    console.error("[BBPMP] ga_Qv tidak ditemukan.");
+    return;
   }
 
-  const postUrl =
-    scheme + "://" + apHost + ":" + port +
-    "/cgi-bin/hotspot_login.cgi?" + rawQuery;
+  // ================================================================
+  // NORMALIZE AP HOST
+  // ================================================================
+  // Normally ga_srvr is an AP IP/hostname. Remove an accidental port
+  // so that the configured Cambium port below is used exactly once.
+  let apHost = gaSrvr;
 
+  // IPv6 in [addr]:port form.
+  if (apHost.startsWith("[") && apHost.includes("]")) {
+    apHost = apHost.substring(1, apHost.indexOf("]"));
+  }
+  // IPv4/hostname with a numeric port.
+  else if (/^\S+:\d+$/.test(apHost)) {
+    apHost = apHost.replace(/:\d+$/, "");
+  }
+
+  // Prevent malformed host values from becoming a dangerous URL.
+  if (!apHost || /[\s/?#]/.test(apHost)) {
+    button.disabled = true;
+    if (status) {
+      status.textContent =
+        "Alamat Access Point Cambium tidak valid. Silakan sambungkan ulang Wi-Fi.";
+    }
+    console.error("[BBPMP] ga_srvr tidak valid:", gaSrvr);
+    return;
+  }
+
+  // ================================================================
+  // CAMBIUM CLICKTHROUGH POST URL
+  // ================================================================
+  const postUrl =
+    CAMBIUM_AP_PROTOCOL + "://" +
+    apHost + ":" +
+    CAMBIUM_AP_PORT +
+    "/cgi-bin/hotspot_login.cgi?" +
+    rawQuery;
+
+  // Set the form to submit directly to the Cambium AP.
+  // For Clickthrough there is no username/password POST body required;
+  // the original query string is the important part.
   form.method = "POST";
   form.action = postUrl;
   form.target = "_self";
   form.enctype = "application/x-www-form-urlencoded";
 
+  console.log("[BBPMP] Cambium External Hotspot ready");
+  console.log("[BBPMP] ga_srvr:", gaSrvr);
+  console.log("[BBPMP] ga_Qv present:", Boolean(gaQv));
+  console.log("[BBPMP] POST URL:", postUrl);
+
+  // ================================================================
+  // SUBMIT
+  // ================================================================
   form.addEventListener("submit", function () {
+    // Cambium must receive the POST first. Do NOT redirect to Instagram
+    // from JavaScript here. The Success Action in cnMaestro performs the
+    // final redirect after the AP authorizes the client.
     button.disabled = true;
     button.innerHTML =
       '<i class="fas fa-spinner fa-spin"></i> CONNECTING...';
 
-    status.textContent =
-      "Menghubungkan ke jaringan BBPMP...";
-
-    /*
-     * IMPORTANT:
-     * Do not window.location.href to Instagram here.
-     * Cambium must receive the POST first and authorize the client.
-     * The Success Action configured in cnMaestro will perform the
-     * final redirect to Instagram after authorization.
-     */
+    if (status) {
+      status.textContent = "Menghubungkan ke jaringan BBPMP...";
+    }
   });
 });
