@@ -1,75 +1,46 @@
-# Portal Hotspot BBPMP - Tampilan Original
+# Hotspot BBPMP - Cambium External Hotspot
 
-Versi ini mengembalikan desain portal seperti versi sebelumnya:
+Portal ini dipakai sebagai external captive portal untuk Cambium cnMaestro.
 
-- Background foto di sisi kiri menggunakan `images/background.jpg`
-- Logo BBPMP menggunakan `images/logo-bbpmp.png`
-- Panel putih modern di sisi kanan
-- BBPMP / PROVINSI JAWA TIMUR
-- 4 fitur ikon
-- Tombol ACCEPT & CONNECT
-- Footer BBPMP
+## Cambium configuration
 
-Perubahan hanya pada mekanisme submit Cambium di `js/main.js`.
+WLAN > Guest Access:
 
-## File gambar wajib
+- Enable: ON
+- Portal Mode: External Hotspot
+- Access Policy: Clickthrough
+- External Page URL: `https://hotspot-bbpmp.duckdns.org`
+- External Portal Type: Standard
+- Success Action: Redirect User to External URL
+- Redirect URL: `https://www.instagram.com/bbpmpjatim/`
 
-Masukkan file yang sudah Anda gunakan sebelumnya:
+### AP Server Protocol
 
-```text
-images/logo-bbpmp.png
-images/background.jpg
-images/favicon.ico
-```
+Set **HTTPS** if the external portal is opened over HTTPS. `main.js` will then POST to:
 
-Jangan mengganti nama file.
+`https://<ga_srvr>:444/cgi-bin/hotspot_login.cgi?<original-query-string>`
 
-## URL portal
+If you deliberately use HTTP for the AP Server Protocol and the portal itself is served over HTTP, the script will use:
 
-Gunakan domain Anda:
+`http://<ga_srvr>:880/cgi-bin/hotspot_login.cgi?<original-query-string>`
 
-```text
-https://hotspot-bbpmp.duckdns.org
-```
+Do not change or re-encode `ga_Qv`.
 
-Bukan GitHub Pages sebagai External Page URL.
+Do not redirect to Instagram from JavaScript. The Cambium Success Action should perform the final redirect after the AP has authorized the client.
 
-## Instagram
+## Important
 
-Redirect setelah berhasil tetap:
+The external portal server must be reachable by the client before authentication. The client must also be able to reach the AP address contained in `ga_srvr` on the configured POST port.
 
-```text
-https://www.instagram.com/bbpmpjatim/
-```
+For the HTTPS configuration, the AP's HTTPS service/certificate must be reachable from the client. If the captive portal assistant on a phone rejects the AP certificate, test by opening the portal in the normal browser after connecting to Wi-Fi.
 
-## cnMaestro
+## Test
 
-External Page URL:
+1. Forget the SSID and reconnect.
+2. Trigger captive portal with `http://neverssl.com`.
+3. Confirm the portal URL contains `ga_srvr` and `ga_Qv`.
+4. Click `ACCEPT & CONNECT`.
+5. The browser should POST to the Cambium AP, not directly to Instagram.
+6. After Cambium authorizes the client, the Success Action redirects to `https://www.instagram.com/bbpmpjatim/`.
+7. Test another site after Instagram to confirm internet access.
 
-```text
-https://hotspot-bbpmp.duckdns.org
-```
-
-Success Action:
-
-```text
-Redirect User to External URL
-```
-
-Redirect URL:
-
-```text
-https://www.instagram.com/bbpmpjatim/
-```
-
-Untuk mekanisme HTTPS POST pada script:
-
-```text
-https://<ga_srvr>:444/cgi-bin/hotspot_login.cgi
-```
-
-Jika port HTTPS pada AP Anda berbeda atau tidak tersedia, jangan mengganti port secara acak; kirim screenshot error dari browser/cnMaestro.
-
-
-## Perbaikan tampilan
-Background terbaru hanya menggunakan area visual kiri dari desain baru, sehingga tidak ada lagi kartu portal yang terduplikasi di dalam background. Panel portal HTML tetap dirender oleh `index.html`.
