@@ -1,61 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("loginForm");
-  const button = document.getElementById("connectBtn");
-  const status = document.getElementById("portalStatus");
+/*
+ * BBPMP - Cambium cnMaestro External Hotspot / Clickthrough
+ * HTTP-ready version.
+ *
+ * IMPORTANT:
+ * - Keep the original query string exactly as Cambium supplied it.
+ * - Do not redirect to Instagram from JavaScript.
+ * - Cambium must receive the POST first and authorize the client.
+ * - Configure the final Instagram redirect in cnMaestro > Guest Access >
+ *   Success Action > Redirect User to External URL.
+ */
+(function () {
+  "use strict";
 
-  if (!form || !button) return;
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("loginForm");
+    var button = document.getElementById("connectBtn");
+    var status = document.getElementById("portalStatus");
 
-  // Cambium sends the AP address and the signed query string to the
-  // external portal. Keep the original query string EXACTLY as received.
-  const rawQuery = window.location.search.startsWith("?")
-    ? window.location.search.slice(1)
-    : "";
+    if (!form || !button) return;
 
-  const params = new URLSearchParams(rawQuery);
-  const gaSrvr = params.get("ga_srvr");
+    var rawQuery = window.location.search.charAt(0) === "?"
+      ? window.location.search.substring(1)
+      : "";
 
-  if (!gaSrvr) {
-    button.disabled = true;
-    status.textContent =
-      "Parameter Cambium (ga_srvr) tidak ditemukan. Sambungkan ulang ke Wi-Fi BBPMP.";
-    return;
-  }
+    var params = new URLSearchParams(window.location.search);
+    var gaSrvr = params.get("ga_srvr");
 
-  // Basic safety check: ga_srvr must be a host/IP, not a URL or path.
-  const validHost =
-    /^[a-zA-Z0-9.-]+$/.test(gaSrvr) &&
-    !gaSrvr.includes("..") &&
-    gaSrvr.length <= 253;
-
-  if (!validHost) {
-    button.disabled = true;
-    status.textContent =
-      "Alamat AP Cambium tidak valid. Silakan sambungkan ulang ke Wi-Fi.";
-    return;
-  }
-
-  /*
-   * Cambium External Hotspot / Clickthrough:
-   * The client browser must POST to the AP on TCP/880 and append the
-   * ORIGINAL query string unchanged. This includes ga_Qv, so do not
-   * rebuild or URL-decode/re-encode the query string.
-   *
-   * The AP will authorize the client. The final redirect (for example
-   * Instagram) must be configured in Cambium > Guest Access > Success Action.
-   */
-  form.action =
-    "http://" + gaSrvr + ":880/cgi-bin/hotspot_login.cgi?" + rawQuery;
-  form.method = "POST";
-  form.target = "_self";
-  form.enctype = "application/x-www-form-urlencoded";
-
-  form.addEventListener("submit", () => {
-    button.disabled = true;
-    button.innerHTML =
-      '<i class="fas fa-spinner fa-spin"></i> CONNECTING...';
-
-    if (status) {
-      status.textContent = "Menghubungkan ke jaringan BBPMP...";
+    if (!gaSrvr) {
+      button.disabled = true;
+      if (status) {
+        status.textContent =
+          "Portal belum menerima parameter Cambium (ga_srvr). " +
+          "Sambungkan ulang ke Wi-Fi BBPMP dan buka portal dari captive portal.";
+      }
+      return;
     }
+
+    /* Normalize common Cambium ga_srvr formats without changing the value
+       sent back in the original query string. */
+    var apHost = gaSrvr.trim();
+
+    if (apHost.charAt(0) === "[") {
+      var closeBracket = apHost.indexOf("]");
+      if (closeBracket > 0) apHost = apHost.substring(1, closeBracket);
+    } else if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(apHost)) {
+      apHost = apHost.substring(0, apHost.lastIndexOf(":"));
+    } else if (/^[a-zA-Z0-9.-]+:\d+$/.test(apHost)) {
+      apHost = apHost.substring(0, apHost.lastIndexOf(":"));
+    }
+
+    /* Current cnMaestro configuration: AP Server Protocol = HTTP. */
+    var postUrl =
+      "http://" + apHost + ":880/cgi-bin/hotspot_login.cgi" +
+      (rawQuery ? "?" + rawQuery : "");
+
+    form.method = "POST";
+    form.action = postUrl;
+    form.target = "_self";
+    form.enctype = "application/x-www-form-urlencoded";
+
+    form.addEventListener("submit", function () {
+      button.disabled = true;
+      button.innerHTML = "<span class=\"btn-icon\">◌</span> CONNECTING...";
+      if (status) status.textContent = "Menghubungkan ke jaringan BBPMP...";
+    });
   });
-});
+})();

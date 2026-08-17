@@ -2,30 +2,43 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b438b">
   <title>Layanan Hotspot Resmi BBPMP Provinsi Jawa Timur</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <div class="left-panel"></div>
+  <main class="portal-shell">
+    <section class="brand-side" aria-hidden="true">
+      <div class="brand-overlay"></div>
+      <div class="brand-copy">
+        <span class="eyebrow">BBPMP PROVINSI JAWA TIMUR</span>
+        <h1>Konektivitas untuk<br>pendidikan yang berkualitas.</h1>
+        <p>Jaringan hotspot resmi untuk mendukung kegiatan pendidikan, pelatihan, dan administrasi.</p>
+        <div class="network-pills">
+          <span><b>◉</b> Aman</span>
+          <span><b>▮</b> Stabil</span>
+          <span><b>◌</b> Cepat</span>
+        </div>
+      </div>
+      <div class="side-footer">bbpmp.jatim.kemdikdasmen.go.id</div>
+    </section>
 
-    <div class="right-panel">
+    <section class="content-side">
       <div class="login-card">
-
         <div class="logo-container">
-          <img src="images/logo-bbpmp.png" alt="Logo BBPMP Jatim" class="logo">
+          <img src="images/logo-bbpmp.png" alt="Logo BBPMP Provinsi Jawa Timur" class="logo">
           <div class="brand-text">
-            <h1>BBPMP</h1>
-            <h2>PROVINSI JAWA TIMUR</h2>
-            <p class="subtitle">Layanan Hotspot Resmi</p>
+            <h2>BBPMP</h2>
+            <h3>PROVINSI JAWA TIMUR</h3>
+            <p>Layanan Hotspot Resmi</p>
           </div>
         </div>
 
-        <div class="wifi-icon-center">
-          <i class="fas fa-wifi"></i>
+        <div class="wifi-icon-center" aria-hidden="true">
+          <span>⌁</span>
+          <strong>◔</strong>
         </div>
 
         <p class="welcome-text">
@@ -35,28 +48,15 @@
         </p>
 
         <div class="features-grid">
-          <div class="feature-item">
-            <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
-            <p>Gunakan Internet<br>Secara Bijak</p>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fas fa-balance-scale"></i></div>
-            <p>Patuhi Peraturan<br>yang Berlaku</p>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fas fa-lock"></i></div>
-            <p>Jaringan Aman<br>dan Terpercaya</p>
-          </div>
-          <div class="feature-item">
-            <div class="icon-box"><i class="fas fa-users"></i></div>
-            <p>Untuk Kegiatan<br>Pendidikan</p>
-          </div>
+          <div class="feature-item"><div class="icon-box">✓</div><p>Gunakan Internet<br>Secara Bijak</p></div>
+          <div class="feature-item"><div class="icon-box">⚖</div><p>Patuhi Peraturan<br>yang Berlaku</p></div>
+          <div class="feature-item"><div class="icon-box">▣</div><p>Jaringan Aman<br>dan Terpercaya</p></div>
+          <div class="feature-item"><div class="icon-box">●●</div><p>Untuk Kegiatan<br>Pendidikan</p></div>
         </div>
 
-        <!-- Cambium Clickthrough: endpoint ditentukan oleh main.js -->
         <form id="loginForm" method="POST" action="">
           <button type="submit" id="connectBtn" class="btn-connect">
-            <i class="fas fa-wifi"></i> ACCEPT &amp; CONNECT
+            <span class="btn-icon">⌁</span> ACCEPT &amp; CONNECT
           </button>
         </form>
 
@@ -64,15 +64,16 @@
           Dengan mengklik tombol di atas, Anda menyetujui syarat dan ketentuan
           penggunaan layanan internet ini.
         </p>
+
+        <div class="mobile-note">Hotspot resmi BBPMP Provinsi Jawa Timur</div>
       </div>
 
-      <div class="footer-bar">
-        <div><i class="fas fa-globe"></i> bbpmp.jatim.kemdikdasmen.go.id</div>
-        <div>&copy; 2026 BBPMP Provinsi Jawa Timur</div>
-      </div>
-    </div>
-  </div>
-
+      <footer class="footer-bar">
+        <span>● bbpmp.jatim.kemdikdasmen.go.id</span>
+        <span>© 2026 BBPMP Provinsi Jawa Timur</span>
+      </footer>
+    </section>
+  </main>
   <script src="js/main.js"></script>
 </body>
 </html>
