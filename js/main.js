@@ -51,7 +51,7 @@
 
     /* Current cnMaestro configuration: AP Server Protocol = HTTP. */
     var postUrl =
-      "http://" + apHost + ":880/cgi-bin/hotspot_login.cgi" +
+      "https://" + apHost + ":444/cgi-bin/hotspot_login.cgi" +
       (rawQuery ? "?" + rawQuery : "");
 
     form.method = "POST";
