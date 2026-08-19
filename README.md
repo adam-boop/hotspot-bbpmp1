@@ -84,9 +84,3 @@ http://hotspot-bbpmp.duckdns.org
 Portal harus menerima query string Cambium seperti `ga_srvr`, `ga_ssid`, `ga_ap_mac`, `ga_nas_id`, dan parameter lain yang diberikan oleh AP. Jangan menghapus query string tersebut saat membuka portal.
 
 Jika tombol tetap `CONNECTING...`, periksa URL portal dan pastikan `ga_srvr` ada pada address bar. Untuk konfigurasi AP Server Protocol HTTP, jangan mengganti External Page URL menjadi HTTPS tanpa menyesuaikan mekanisme POST Cambium.
-
-
-### FINAL-3 HTTPS
-- Captive portal POST uses HTTPS port 444.
-- Existing background, design, logo, and other assets were preserved.
-- Cambium Guest Access should use AP Server Protocol: HTTPS.
